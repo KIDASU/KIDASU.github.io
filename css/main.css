@@ -1684,7 +1684,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #41ff1c;
+  background: #9e740e;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2771,4 +2771,17 @@ hr {
     width: auto;
     text-align: center;
   }
+}
+body {
+  background: url("/images/beijing.JPG");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+.main-inner {
+  margin-top: 60px;
+  padding: 60px 60px 60px 60px;
+  background: #fff;
+  opacity: 0.9;
+  min-height: 500px;
 }
