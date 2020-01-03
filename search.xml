@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>litemall中使用的相关技术知识合集</title>
+    <url>/2020/01/03/litemall%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E5%90%88%E9%9B%86/</url>
+    <content><![CDATA[<h1 id="Servlet的并发机制"><a href="#Servlet的并发机制" class="headerlink" title="Servlet的并发机制"></a>Servlet的并发机制</h1>]]></content>
+  </entry>
+  <entry>
     <title>Eureka专题学习</title>
     <url>/2019/12/30/Eureka%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h1 id="Eureka专题学习"><a href="#Eureka专题学习" class="headerlink" title="Eureka专题学习"></a>Eureka专题学习</h1><h2 id="什么是eureka？"><a href="#什么是eureka？" class="headerlink" title="什么是eureka？"></a>什么是eureka？</h2><p>first，用于微服务的注册与发现</p>
