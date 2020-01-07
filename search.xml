@@ -48,7 +48,7 @@
 <p>controller层的功能为请求和响应控制。</p>
 <p>controller层负责前后端交互，接受前端请求，调用service层，接收service层返回的数据，最后返回具体的页面和数据到客户端。</p>
 <p><strong>VO</strong>（<strong>View Object</strong>）：视图对象，用于展示层，它的作用是把某个指定页面（或组件）用于展示的数据封装起来。</p>
-<p><strong>DTO</strong>（<strong>Data Transfer Object</strong>）：**数据传输对象，将数据封装成普通的POJO，在J2EE多个层次之间传输。</p>
+<p><strong>DTO</strong>（<strong>Data Transfer Object</strong>）：数据传输对象，将数据封装成普通的POJO，在J2EE多个层次之间传输。</p>
 <p><strong>PO</strong>（<strong><em>Persistent Object</em></strong>）：持久化对象，它跟持久层（通常是关系型数据库）的数据结构形成一一对应的映射关系，如果持久层是关系型数据库，那么，数据表中的每个字段（或若干个）就对应PO的一个（或若干个）属性。</p>
 <h1 id="NGINX服务器"><a href="#NGINX服务器" class="headerlink" title="NGINX服务器"></a>NGINX服务器</h1><p>nginx高并发——异步非阻塞，负载能力高于阻塞的apache</p>
 <h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>nginx为服务器端负载均衡</p>
@@ -59,7 +59,30 @@
 <p>作用：保证内网安全，通常将反向代理作为公网访问地址，web服务器是内网</p>
 <h2 id="HTTP服务器（动静态分离）"><a href="#HTTP服务器（动静态分离）" class="headerlink" title="HTTP服务器（动静态分离）"></a>HTTP服务器（动静态分离）</h2><p>静态资源做好缓存</p>
 <p>动态请求交给tomcat</p>
-<h1 id="Docker服务"><a href="#Docker服务" class="headerlink" title="Docker服务"></a>Docker服务</h1><h1 id="基于Redis的库存并发设计"><a href="#基于Redis的库存并发设计" class="headerlink" title="基于Redis的库存并发设计"></a>基于Redis的库存并发设计</h1><h1 id="ZUUL网关相关"><a href="#ZUUL网关相关" class="headerlink" title="ZUUL网关相关"></a>ZUUL网关相关</h1><p>Zuul包含了对请求的路由和过滤两个最主要的功能</p>
+<h1 id="Docker服务"><a href="#Docker服务" class="headerlink" title="Docker服务"></a>Docker服务</h1><p>对比学习——虚拟机</p>
+<p>Docker 通过命名空间实现了资源隔离</p>
+<p>Linux容器虚拟技术（Linux container），它是Docker容器技术的基础，Docker轻量级的虚拟化，虚拟机虽然可以隔离出很多“子电脑”，但占用空间更大，启动慢。</p>
+<p>传统虚拟机在硬件层面上实现虚拟化，需要有额外的虚拟机管理应用和虚拟机操作系统，而Docker容器是在操作系统层面上实现的虚拟化，直接利用本地主机的操作系统，因此更轻量。</p>
+<p>对比：</p>
+<p>Docker启动快速属于秒级别。虚拟机通常需要几分钟去启动。</p>
+<p>Docker需要的资源更少，Docker在操作系统级别进行虚拟化，Docker容器和内核交互，几乎没有性能损耗，性能优于通过Hypervisor层与内核层的虚拟化。</p>
+<p>Docker更轻量，Docker的架构可以共用一个内核与共享应用程序库，所占内存极小。同样的硬件环境，Docker运行的镜像数远多于虚拟机数量。对系统的利用率非常高。</p>
+<p>与虚拟机相比，Docker隔离性更弱，Docker属于进程之间的隔离，虚拟机可实现系统级别隔离。</p>
+<p>安全性：Docker的安全性也更弱。Docker的租户root和宿主机root等同，一旦容器内的用户从普通用户权限提升为root权限，它就直接具备了宿主机的root权限，进而可进行无限制的操作。虚拟机租户root权限和宿主机的root虚拟机权限是分离的，并且虚拟机利用如Intel的VT-d和VT-x的ring-1硬件隔离技术，这种隔离技术可以防止虚拟机突破和彼此交互，而容器至今还没有任何形式的硬件隔离，这使得容器容易受到攻击。</p>
+<p>可管理性：Docker的集中化管理工具还不算成熟。各种虚拟化技术都有成熟的管理工具，例如VMware vCenter提供完备的虚拟机管理能力。</p>
+<p>高可用和可恢复性：Docker对业务的高可用支持是通过快速重新部署实现的。虚拟化具备负载均衡、高可用、容错、迁移和数据保护等经过生产实践检验的成熟保障机制，VMware可承诺虚拟机99.999%高可用，保证业务连续性。</p>
+<p>快速创建、删除：虚拟化创建是分钟级别的，Docker容器创建是秒级别的，Docker的快速迭代性，决定了无论是开发、测试、部署都可以节约大量时间。</p>
+<p>交付、部署：虚拟机可以通过镜像实现环境交付的一致性，但镜像分发无法体系化；Docker在Dockerfile中记录了容器构建过程，可在集群中实现快速分发和快速部署。</p>
+<h1 id="基于Redis的库存并发设计"><a href="#基于Redis的库存并发设计" class="headerlink" title="基于Redis的库存并发设计"></a>基于Redis的库存并发设计</h1><h2 id="redis作用"><a href="#redis作用" class="headerlink" title="redis作用"></a>redis作用</h2><p>（1）Redis是将数据存到内存中，而Mysql存在磁盘中，从内存中读取数据更快</p>
+<p>（2）访问率高但更新频率较低的数据，可以添加缓存，减少Mysql压力</p>
+<p>（3）查询时先从Redis中查，没有再去Mysql中查，将查到的数据放缓存中一份。</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>使用消息队列主要是为了通过异步处理提高系统性能和<strong>削峰</strong>、<strong>降低系统耦合性</strong>。</p>
+<p>削峰：</p>
+<p>在不使用消息队列服务器的时候，用户的请求数据直接写入数据库，在高并发的情况下数据库压力剧增，使得响应速度变慢。但是在使用消息队列之后，用户的请求数据发送给消息队列之后立即 返回，再由消息队列的消费者进程从消息队列中获取数据，异步写入数据库。由于消息队列服务器处理速度快于数据库（消息队列也比数据库有更好的伸缩性），因此响应速度得到大幅改善。</p>
+<p>降低耦合：</p>
+<p>消息队列使利用发布-订阅模式工作，消息发送者（生产者）发布消息，一个或多个消息接受者（消费者）订阅消息。对新增业务，只要对该类消息感兴趣，即可订阅该消息，对原有系统和业务没有任何影响，从而实现网站业务的可扩展性设计。</p>
+<p>注意：为了避免消息队列服务器宕机造成消息丢失，会将成功发送到消息队列的消息存储在消息生产者服务器上，等消息真正被消费者服务器处理后才删除消息。在消息队列服务器宕机后，生产者服务器会选择分布式消息队列服务器集群中的其他服务器发布消息。</p>
+<h1 id="ZUUL网关相关"><a href="#ZUUL网关相关" class="headerlink" title="ZUUL网关相关"></a>ZUUL网关相关</h1><p>Zuul包含了对请求的路由和过滤两个最主要的功能</p>
 <p>是实现外部访问统一入口的基础而过滤器功能则负责对请求的处理过程进行干预，是实现请求校验、服务聚合等功能的基础</p>
 <p>filter进行权限判断的过滤</p>
 <h1 id="Eureka相关"><a href="#Eureka相关" class="headerlink" title="Eureka相关"></a>Eureka相关</h1><p>详见Eureka学习</p>
