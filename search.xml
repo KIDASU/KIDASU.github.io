@@ -3,7 +3,13 @@
   <entry>
     <title>litemall中使用的相关技术知识合集</title>
     <url>/2020/01/03/litemall%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E5%90%88%E9%9B%86/</url>
-    <content><![CDATA[<h1 id="Servlet的并发机制"><a href="#Servlet的并发机制" class="headerlink" title="Servlet的并发机制"></a>Servlet的并发机制</h1>]]></content>
+    <content><![CDATA[<h1 id="Servlet的并发机制"><a href="#Servlet的并发机制" class="headerlink" title="Servlet的并发机制"></a>Servlet的并发机制</h1><h1 id="Maven多项目管理"><a href="#Maven多项目管理" class="headerlink" title="Maven多项目管理"></a>Maven多项目管理</h1><h1 id="Litemall后端体系结构合模块划分"><a href="#Litemall后端体系结构合模块划分" class="headerlink" title="Litemall后端体系结构合模块划分"></a>Litemall后端体系结构合模块划分</h1><h1 id="NGINX服务器"><a href="#NGINX服务器" class="headerlink" title="NGINX服务器"></a>NGINX服务器</h1><h1 id="Docker服务"><a href="#Docker服务" class="headerlink" title="Docker服务"></a>Docker服务</h1><h1 id="基于Redis的库存并发设计"><a href="#基于Redis的库存并发设计" class="headerlink" title="基于Redis的库存并发设计"></a>基于Redis的库存并发设计</h1><h1 id="ZUUL网关相关"><a href="#ZUUL网关相关" class="headerlink" title="ZUUL网关相关"></a>ZUUL网关相关</h1><h1 id="Eureka相关"><a href="#Eureka相关" class="headerlink" title="Eureka相关"></a>Eureka相关</h1><p>详见Eureka学习</p>
+<h1 id="ribbon相关"><a href="#ribbon相关" class="headerlink" title="ribbon相关"></a>ribbon相关</h1><p>客户端的负载均衡</p>
+<p>HA（高可用）</p>
+<p>集成到消费方，进程内LB（load balance）</p>
+<p>默认有轮询算法、随机等等 </p>
+<p>IRule作为接口，可以自定义实现LB算法</p>
+]]></content>
   </entry>
   <entry>
     <title>Eureka专题学习</title>
