@@ -3,7 +3,27 @@
   <entry>
     <title>litemall中使用的相关技术知识合集</title>
     <url>/2020/01/03/litemall%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E5%90%88%E9%9B%86/</url>
-    <content><![CDATA[<h1 id="Servlet的并发机制"><a href="#Servlet的并发机制" class="headerlink" title="Servlet的并发机制"></a>Servlet的并发机制</h1><h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><ul>
+    <content><![CDATA[<h1 id="Servlet的并发机制"><a href="#Servlet的并发机制" class="headerlink" title="Servlet的并发机制"></a>Servlet的并发机制</h1><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>单例多线程：一个servlet类只实例化一个对象（在第一次被调用时），多个线程共享这个对象</p>
+<p><strong>利用线程池管理多线程</strong></p>
+<h3 id="线程池的管理"><a href="#线程池的管理" class="headerlink" title="线程池的管理"></a>线程池的管理</h3><p>1、线程池开始工作时，就会创建最小空闲数的线程在池里。</p>
+<p>2、当同一时间请求数量大于最小空闲数20，比如来了50个并发请求，那么线程池还需要创建30个线程来处理请求。</p>
+<p>3、空闲线程：一个线程在60s的时间内，一直处于等待。那么就可以判定该线程是空闲。</p>
+<p>4、空闲线程是在最小空闲数以上，则会被回收。</p>
+<p>（1）当请求并发高于500最大空闲数的时候，线程池是会继续创建线程的，来满足特大突发性并发。当并发请求数降下之后，线程池中有空闲，那么，无论线程空闲时间是否达到60s，线程池都会进行回收至500。</p>
+<p>（2）500以内的线程也会根据空闲时间是否大于60s来判断是否需要进行回收。</p>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p> Servlet 遵循的过程：</p>
+<ul>
+<li><p>Servlet 通过调用 <strong>init ()</strong> 方法进行初始化。</p>
+</li>
+<li><p>Servlet 调用 <strong>service()</strong> 方法来处理客户端的请求。</p>
+</li>
+<li><p>Servlet 通过调用 <strong>destroy()</strong> 方法终止（结束）。</p>
+</li>
+<li><p>最后，Servlet 是由 JVM 的垃圾回收器进行垃圾回收的。</p>
+</li>
+</ul>
+<p> 周期方案</p>
+<ul>
 <li><p>第一个到达服务器的 HTTP 请求被委派到 Servlet 容器。</p>
 </li>
 <li><p>Servlet 容器在调用 service() 方法之前加载 Servlet。</p>
@@ -11,7 +31,26 @@
 <li><p>然后 Servlet 容器处理由多个线程产生的多个请求，每个线程执行一个单一的 Servlet 实例的 service() 方法。</p>
 </li>
 </ul>
-<h1 id="Maven多项目管理"><a href="#Maven多项目管理" class="headerlink" title="Maven多项目管理"></a>Maven多项目管理</h1><h1 id="Litemall后端体系结构和模块划分"><a href="#Litemall后端体系结构和模块划分" class="headerlink" title="Litemall后端体系结构和模块划分"></a>Litemall后端体系结构和模块划分</h1><h1 id="NGINX服务器"><a href="#NGINX服务器" class="headerlink" title="NGINX服务器"></a>NGINX服务器</h1><p>nginx高并发——异步非阻塞，负载能力高于阻塞的apache</p>
+<h2 id="Servlet并发机制"><a href="#Servlet并发机制" class="headerlink" title="Servlet并发机制"></a>Servlet并发机制</h2><h3 id="Servlet并发机制的优点"><a href="#Servlet并发机制的优点" class="headerlink" title="Servlet并发机制的优点"></a>Servlet并发机制的优点</h3><p>•<strong>通过线程池管理多线程</strong></p>
+<p>  （1）降低资源消耗–&gt;重复利用已经创建的线程</p>
+<p>  （2）提高响应速度–&gt;当请求到达时而线程池中有空闲线程时候，可以直接从线程池获取线程,而不需要创建新的线程</p>
+<p>  （3）提高线程的可管理性–&gt;使用线程池可以统一分配,调优和监控,例如可以根据系统的承受能力,调增线程池中工作线程的数目</p>
+<p>•<strong>单例</strong></p>
+<p>  （1）由于单例模式在内存中只有一个实例，减少内存开支，特别是一个对象需要频繁地创建销毁时。</p>
+<p>  （2）由于单例模式只生成一个实例，所以，减少系统的性能开销。</p>
+<h3 id="SERVLET并发机制的缺点：多线程同步问题"><a href="#SERVLET并发机制的缺点：多线程同步问题" class="headerlink" title="SERVLET并发机制的缺点：多线程同步问题"></a>SERVLET并发机制的缺点：多线程同步问题</h3><p>即不加锁会导致数据不同意，加锁会降低效率</p>
+<h1 id="Maven多项目管理"><a href="#Maven多项目管理" class="headerlink" title="Maven多项目管理"></a>Maven多项目管理</h1><p>maven是专门用于构建和管理java相关项目的工具</p>
+<h1 id="Litemall后端体系结构和模块划分"><a href="#Litemall后端体系结构和模块划分" class="headerlink" title="Litemall后端体系结构和模块划分"></a>Litemall后端体系结构和模块划分</h1><p>dao层操作数据</p>
+<p>service层即业务逻辑层。</p>
+<p>service层的作用为完成功能设计。</p>
+<p>service层调用dao层接口，接收dao层返回的数据，完成项目的基本功能设计。</p>
+<p>controller层即控制层。</p>
+<p>controller层的功能为请求和响应控制。</p>
+<p>controller层负责前后端交互，接受前端请求，调用service层，接收service层返回的数据，最后返回具体的页面和数据到客户端。</p>
+<p><strong>VO</strong>（<strong>View Object</strong>）：视图对象，用于展示层，它的作用是把某个指定页面（或组件）用于展示的数据封装起来。</p>
+<p><strong>DTO</strong>（<strong>Data Transfer Object</strong>）：**数据传输对象，将数据封装成普通的POJO，在J2EE多个层次之间传输。</p>
+<p><strong>PO</strong>（<strong><em>Persistent Object</em></strong>）：持久化对象，它跟持久层（通常是关系型数据库）的数据结构形成一一对应的映射关系，如果持久层是关系型数据库，那么，数据表中的每个字段（或若干个）就对应PO的一个（或若干个）属性。</p>
+<h1 id="NGINX服务器"><a href="#NGINX服务器" class="headerlink" title="NGINX服务器"></a>NGINX服务器</h1><p>nginx高并发——异步非阻塞，负载能力高于阻塞的apache</p>
 <h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>nginx为服务器端负载均衡</p>
 <p>它与ribbon的区别：</p>
 <p>nginx为集中式LB：即在服务的消费方和提供方之间使用独立的LB设施(可以是硬件，如F5, 也可以是软件，如nginx), 由该设施负责把访问请求通过某种策略转发至服务的提供方</p>
